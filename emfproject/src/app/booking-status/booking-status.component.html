@@ -18,8 +18,8 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label for="inputEmail5" class="form-label">ADD TOWN</label>
-              <input id="inputState" type="text" class="form-select" formControlName="place">
+              <label for="inputEmail5" class="form-label">ADD TOWN</label><br>
+              <input formControlName="place" type="text" class="form-select">
             </div>  
             <div class="text-center mt-2">
               <button type="submit" style="width: 20rem; color:#f2f3f3 ;background-color:#05816d "
@@ -29,8 +29,6 @@
             </div>
           </form>
     </div>  
-    
-
     <h2 class="fw-bold mb-5 text-center mt-3" style="color:#0b0b0b  ">Location List</h2>
     <div class="border border-info p-4 mt-5">
         <table class="table table-striped mt-5">
@@ -49,10 +47,6 @@
                   <button type="button" style="margin-right: 10px;" class="btn btn-warning" (click)="edit(Status)">
                     <i class="fa fa-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-danger" (click)="deleteById(Status.id)">
-                    <i class="fa fa-trash"></i>
-                  </button>
-      
                 </td>
               </tr>
             </tbody>

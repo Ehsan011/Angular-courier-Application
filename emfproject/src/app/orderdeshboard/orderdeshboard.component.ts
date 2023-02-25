@@ -13,8 +13,7 @@ import { Observable } from 'rxjs';
 export class OrderdeshboardComponent implements OnInit{
 
   base = "http://localhost:9001/get_available_dlm/"
-  statuseUpdateUrl="http://localhost:9001/status/"
-
+  urlupdate="http://localhost:9001/order/update/"
  
   form: UntypedFormGroup;
   submitted = false;
@@ -22,10 +21,14 @@ export class OrderdeshboardComponent implements OnInit{
   delivary_man_details: any = [];
   isEdit = false;
  
-
   constructor(private fb: UntypedFormBuilder, private http: HttpClient) {
     this.form = fb.group({
+
       id: [],
+      senderName: ['',],
+      senderCell: ['', ],
+      SenderAddress: ['', ],
+      recipientLocation: ['', ],
       recipientName: ['',],
       recipientMobileNo: ['', ],
       recipientAddress: ['', ],
@@ -35,20 +38,22 @@ export class OrderdeshboardComponent implements OnInit{
       numberOfItem: ['', ],
       payment: ['', ],
       orderActivityStatus: ['', ],
+      name:['',],
+
     });
 
-    // this.form = fb.group({
-    //   id: [],
-    //   //  heroName: ['', Validators.required],
-    //   //  heroCell: ['', ],
-    //   //  heroEmail: ['', ],
-    //   //  heroPassword: ['', ],
-    //   //  heroAddress: ['', ],
-    //   //  heroLocation: ['Select', ],
-    //   //  heroStatus: ['', ],
-    //   //  empid: ['', ]
+    this.form = fb.group({
+      id: [],
+       heroName: ['', Validators.required],
+       heroCell: ['', ],
+       heroEmail: ['', ],
+       heroPassword: ['', ],
+       heroAddress: ['', ],
+       heroLocation: ['Select', ],
+       heroStatus: ['', ],
+       empid: ['', ]
        
-    //  });
+     });
    }
 
   ngOnInit(): void {
@@ -56,70 +61,33 @@ export class OrderdeshboardComponent implements OnInit{
     this.showAll();
   }
 
-  edit(OrderDetails: any){
-    this.form.patchValue({
-      
-      id: OrderDetails.id,
-      recipientName: OrderDetails.recipientName,
-      recipientMobileNo: OrderDetails.recipientMobileNo,
-      recipientAddress: OrderDetails.recipientAddress,
-      userLocation: OrderDetails.userLocation,
-      selectProductType: OrderDetails.selectProductType,
-      packageWeight: OrderDetails.packageWeight,
-      numberOfItem: OrderDetails.numberOfItem,
-      payment: OrderDetails.payment,
-      orderActivityStatus: OrderDetails.orderActivityStatus,
-    });
-    this.isEdit = true;
-  }
-  // statusupdateOne(){
-  //     this.submitted=true;
-  //     let url='http://localhost:9001/order/pro/';
-  //     let data=this.form.value;
-  //     this.http.post(url, data).subscribe({
-  //       next: response => {
-  //         alert("Order Assing by delivery man.")
-  //         this.showAll();
-  //       },
-  //       error:err=>{
-  //         alert("assing fileds")
-  //       }
-  //     });
-  // }
-
-  pro?:any;
-
-  statusupdateOne(value:any){
-    this.pro.value;
-      this.submitted=true;
-      let data=this.form.value;
-      this.http.post(this.statuseUpdateUrl+this.pro, data).subscribe({
-        next: response=>{
-          alert("Order Assing by delivery man.")
-          this.showAll();
-        },
-        error:err =>{
-        alert("assing fileds")
-        }
-      });
-      
-  }
-
   hh?: any;
-  
-  getBylo(value: any ){
+  orderIds?:number;
+
+  getBylo(value: any, orderId: any){
+
     this.hh=value;
+    this.orderIds=orderId;
     console.log(this.hh)
+    console.log(this.orderIds)
     this.http.get(this.base+this.hh).subscribe(
       data => {
         this.delivary_man_details = data,
-        console.log(this.delivary_man_details)
+        console.log(this.delivary_man_details);
       }
     ) 
   }
 
+  assinDeliMen(dm:number){
+    this.submitted=true
+    this.http.patch(this.urlupdate+this.orderIds+"/"+dm, dm).subscribe(
+      data=>console.log("Done")
+    )
+    window.location.reload()
+  }
+
   showAll(){
-    let url = 'http://localhost:9001/order/getall';
+    let url = 'http://localhost:9001/orderPanding/getall/Pending';
     this.http.get(url).subscribe({
       next: response =>{
         this.order_details = response;
@@ -128,7 +96,32 @@ export class OrderdeshboardComponent implements OnInit{
         console.log(err);        
       }
     });
+
   } 
+
+  edit(OrderDetails: any){
+    this.form.patchValue({
+      id: OrderDetails.id,
+      senderName: OrderDetails.senderName,
+      senderCell: OrderDetails.senderCell,
+      SenderAddress: OrderDetails.SenderAddress,
+      userLocation: OrderDetails.userLocation,
+
+      recipientLocation: OrderDetails.recipientLocation,
+      recipientName: OrderDetails.recipientName,
+      recipientMobileNo: OrderDetails.recipientMobileNo,
+      recipientAddress: OrderDetails.recipientAddress,
+      
+
+
+      selectProductType: OrderDetails.selectProductType,
+      packageWeight: OrderDetails.packageWeight,
+      numberOfItem: OrderDetails.numberOfItem,
+      payment: OrderDetails.payment,
+      orderActivityStatus: OrderDetails.orderActivityStatus,
+      ord_id_fk: OrderDetails.delivary_man_details,
+    });
+  }
 
   showAlldelivary(){
     let url = 'http://localhost:9001/delivary/getall';

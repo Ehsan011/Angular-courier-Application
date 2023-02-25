@@ -1,95 +1,31 @@
 <app-admin-sidebar></app-admin-sidebar>
-
 <main id="main" class="main">
     <div class="container" style="margin-bottom: 25%;">
         <div class="row" >
           <div class="col-sm-6 border border-info">
-            <div class="text-center"><h2>Panding Order List</h2></div>
+            <div class="text-center"><h3>All Orders</h3></div>
             <table class="table">
                 <thead>
                   <tr >
                     <th scope="col">Id</th>
-                    <th scope="col">Location</th>
                     <th scope="col">Status</th>
-                    <!-- <th scope="col">Items</th> -->
+                    <th scope="col">Location</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let od of order_details">
-                    <th>{{od.id}}</th>
-                    <td>{{od.userLocation}}</td>
+                  <tr *ngFor="let od of order_details; let i=index">
+                    <th>{{i+1}}</th>
                     <td>{{od.orderActivityStatus}}</td>
-                    <!-- <td>{{od.numberOfItem}}</td> -->
-                    <td><a  type="submit" (click)="getBylo(od.userLocation)" >Available Delivery Man</a></td>
+                    <td>{{od.userLocation}}</td>
+                    <td><a  type="submit" (click)="getBylo(od.userLocation, od.id)" >Available Delivery Man</a></td>
                   </tr>
                 </tbody>
               </table>
           </div>
 
-<!-- 
-
-<div class="col-sm-4 border border-info">
-  
-  <form (ngSubmit)="edit">
-    <div class="text-center"><h2>Order Details</h2></div>
-    <div class="row mb-2">
-      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Sender Name</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
-      </div>
-    </div> 
-     <div class="row mb-2">
-      <label for="company" class="col-md-4 col-lg-3 col-form-label">Sender Location</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
-      </div>
-    </div> 
-    <div class="row mb-2">
-      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Name</label>
-      <div class="col-md-10 col-lg-9">
-        <input type="text" class="form-control" id="inputName5" formControlName="recipientName">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Mobile</label>
-      <div class="col-md-10 col-lg-9">
-        <input class="form-control" id="inputPassword5" formControlName="recipientMobileNo">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="address" type="text" class="form-control" formControlName="recipientAddress" value={{order_details.recipientAddress}}>
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Product</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="phone" type="text" class="form-control" formControlName="selectProductType">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Weight</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="email" type="text" class="form-control" id="" formControlName="packageWeight">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Quantity</label>
-      <div class="col-md-10 col-lg-9">
-        <input name="email" type="text" class="form-control" id="" formControlName="numberOfItem">
-      </div>
-    </div> 
-  </form> -->
-
-
-
-
-
-<!-- </div> -->
           <div class="col-sm-6 border border-info">
-           <div class="text-center"><h2>Available Deliveryman </h2></div>
+           <div class="text-center"><h3>Available Deliveryman </h3></div>
             <table class="table">
                 <thead>
                   <tr>
@@ -100,18 +36,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
-                 
                   <tr *ngFor="let dlms of delivary_man_details">
                     <th>{{dlms.empId}}</th>
                     <td>{{dlms.heroName}}</td>
                     <td>{{dlms.heroLocation}}</td>
-                    <td><a type="submit" (click)="statusupdateOne(dlms.order_details)"  >Assign</a></td>
+                    <td><button type="submit" (click)="assinDeliMen(dlms.id)" routerLink="/dl_m" style="margin-left: 10px;" class="btn btn-info" > Assign </button></td>
                   </tr>
                 </tbody>
               </table>
           </div>
-
         </div>
       </div>
 </main>

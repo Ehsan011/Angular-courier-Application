@@ -34,11 +34,8 @@
             <div class="col-md-6">
               <label for="inputCity" class="form-label">City</label>
               <select id="inputState" formControlName="exeCity" class="form-select">
-                <option value="Choose" selected >Choose</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Pabna">Pabna</option>
-                <option value="Bhola">Bhola</option>
-                <option value="Bogura">Bogura</option>
+                <option value="Select"  selected>Select</option>
+                <option *ngFor="let town of status" value="{{town.place}}">{{town.place}}</option>
               </select>
             </div>
             <div class="col-md-6">

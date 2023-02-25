@@ -13,6 +13,8 @@ export class BookingStatusComponent implements OnInit {
   submitted = false;
   status: any = [];
   isEdit = false;
+
+
   constructor(private fb: UntypedFormBuilder, private http: HttpClient
     ) {
     this.form = fb.group({
@@ -23,6 +25,8 @@ export class BookingStatusComponent implements OnInit {
       
     });
   }
+
+  
 
 
   ngOnInit(): void {
@@ -50,7 +54,9 @@ export class BookingStatusComponent implements OnInit {
     }else{
       console.log("invalid");
     }
+    window.location.reload();
  }
+
  showAll(){
   let url = 'http://localhost:9001/status/getall';
   this.http.get(url).subscribe({
@@ -64,13 +70,9 @@ export class BookingStatusComponent implements OnInit {
 }
 edit(Status: any){
   this.form.setValue({
-    
     id: Status.id,
     status: Status.status,
-   
     place: Status.place
-     
-
   });
   this.isEdit = true;
 }

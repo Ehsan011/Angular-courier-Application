@@ -18,7 +18,10 @@ export class DeliverymanComponent implements OnInit{
   form: UntypedFormGroup;
   submitted = false;
   delivary_man_details: any = [];
+  
   isEdit = false;
+
+  status: any = [];
   constructor(private fb: UntypedFormBuilder, private http: HttpClient) {
     
     this.form = fb.group({
@@ -37,6 +40,7 @@ export class DeliverymanComponent implements OnInit{
 
   ngOnInit(): void {
     this.showAll();
+    this.showAllTown();
   }
   get f() {
     return this.form.controls;
@@ -77,8 +81,7 @@ export class DeliverymanComponent implements OnInit{
 }
  
 edit(DelivaryManDetails: any){
-  this.form.setValue({
-    
+  this.form.patchValue({
     id: DelivaryManDetails.id,
     heroName: DelivaryManDetails.heroName,
     heroCell: DelivaryManDetails.heroCell,
@@ -87,11 +90,23 @@ edit(DelivaryManDetails: any){
     heroAddress: DelivaryManDetails.heroAddress,
     heroLocation: DelivaryManDetails.heroCity,
     empId: DelivaryManDetails.empId,
-      
-
   });
   this.isEdit = true;
 }
+
+showAllTown(){
+  let url = 'http://localhost:9001/status/getall';
+  this.http.get(url).subscribe({
+    next: response =>{
+      this.status = response;
+    },
+    error: err =>{
+      console.log(err);        
+    }
+  });
+
+}
+
 deleteById(id: number){
   let url = 'http://localhost:9001/delivary/delete/'+id;
   this.http.get(url).subscribe({

@@ -12,6 +12,7 @@ export class ExecutiveOfficeComponent implements OnInit{
   submitted = false;
   executiveoffice: any = [];
   isEdit = false;
+  status: any = [];
   
   constructor(private fb: UntypedFormBuilder, private http: HttpClient){
     
@@ -31,6 +32,7 @@ export class ExecutiveOfficeComponent implements OnInit{
 
  ngOnInit(): void {
   this.showAll(); 
+  this.showAllTown();
  }
 
  showAll(){
@@ -42,7 +44,20 @@ export class ExecutiveOfficeComponent implements OnInit{
     error: err =>{
       console.log(err);        
     }
-  })
+  });
+}
+
+showAllTown(){
+  let url = 'http://localhost:9001/status/getall';
+  this.http.get(url).subscribe({
+    next: response =>{
+      this.status = response;
+    },
+    error: err =>{
+      console.log(err);        
+    }
+  });
+
 }
  
 

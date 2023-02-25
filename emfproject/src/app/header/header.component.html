@@ -2,10 +2,12 @@
 
   <div class="d-flex align-items-center justify-content-between">
 
-    <a class="logo d-flex align-items-center"  routerLink="/">
-      <img src="assets/img/logo.png" alt="">
-      <span class="d-none d-lg-block">NiceAdmin</span>
-    </a>
+    <button class="logo d-flex align-items-center"  routerLink="/" data-mdb-ripple-color="dark">
+      <img src="assets/img/etter-design.jpg" alt="">
+      <span class="d-none d-lg-block">Courier Service</span>
+    </button>
+      
+   
     <i class="bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
 
@@ -15,14 +17,11 @@
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div><!-- End Search Bar -->
-  <nav class="header-nav ms-auto">
-    <a routerLink="/admin_home">
+  <nav class="header-nav ms-auto ">
     <ul class="d-flex align-items-center">
-      <button class="bi bi-chat-left-text text-info">
-          Admin login
-      </button>
+      <button type="button" routerLink="/admin_home" class="btn btn-secondary" data-bs-toggle="tooltip"> Admin login </button>
     </ul>
-  </a>
-  </nav>
-
+    
+  </nav>  
+      <button type="button" routerLink="/dl_m" style="margin-left: 10px;" class="btn btn-secondary" data-bs-toggle="tooltip"> Hero login </button>
 </header><!-- End Header -->

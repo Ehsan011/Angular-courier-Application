@@ -34,6 +34,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { OrderdeshboardComponent } from './orderdeshboard/orderdeshboard.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { DeliverymanDashBoardComponent } from './deliveryman-dash-board/deliveryman-dash-board.component';
+import { ReceivedProductListComponent } from './received-product-list/received-product-list.component';
+import { DeliveryProductListComponent } from './delivery-product-list/delivery-product-list.component';
+import { DeliverySidebarComponent } from './delivery-sidebar/delivery-sidebar.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +67,12 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     ProfileComponent,
     OrderdeshboardComponent,
     AdminSidebarComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    DeliverymanDashBoardComponent,
+    ReceivedProductListComponent,
+    DeliveryProductListComponent,
+    DeliverySidebarComponent,
+    AllOrdersComponent
   ],
   imports: [
     BrowserModule,

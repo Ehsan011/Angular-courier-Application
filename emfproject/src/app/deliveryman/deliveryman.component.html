@@ -9,7 +9,7 @@
         <!-- [formGroup]="deliveryhero" -->
         <form class="row g-12" [formGroup]="form" (ngSubmit)="save()" name="main_form">
             <div class="col-md-6 for">
-              <label for="inputName5" class="form-label">Your Name</label>
+              <label for="inputName5" class="form-label">Delivery Man Name</label>
               <input type="text" formControlName="heroName" class="form-control" id="inputName5">
             </div>
             <div class="col-md-6">
@@ -31,12 +31,8 @@
             <div class="col-md-3">
               <label for="inputState" class="form-label">Working City</label>
               <select id="inputState" class="form-select" formControlName="heroLocation">
-              
-               <option value="Select" selected>Select</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Pabna">Pabna</option>
-                <option value="Bhola">Bhola</option>
-                <option value="Bogura">Bogura</option>
+                <option value="Select"  selected>Select</option>
+                <option *ngFor="let town of status" value="{{town.place}}">{{town.place}}</option>
               </select>
             </div>
             <div class="col-md-3">

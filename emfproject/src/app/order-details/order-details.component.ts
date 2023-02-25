@@ -13,27 +13,60 @@ export class OrderDetailsComponent implements OnInit {
   form: UntypedFormGroup;
   submitted = false;
   order_details: any = [];
-
   isEdit = false;
+  status: any = [];
   constructor(private fb: UntypedFormBuilder, private http: HttpClient) {
     this.form = fb.group({
       id: [],
-      recipientName: ['', Validators.required],
-      recipientMobileNo: ['', ],
-      recipientAddress: ['', ],
+
+      senderName: ['',],
+      senderCell: ['', ],
+      senderAddress: ['',],
       userLocation: ['Select', ],
-      selectProductType: ['Document', ],
-      packageWeight: ['Select Weight', ],
+      email:['', ],
+
+      recipientLocation: ['', ],
+      recipientName: ['', ],
+      recipientMobileNo: ['',],
+      recipientAddress: ['',],
+
+      selectProductType: ['Document',],
+      packageWeight: ['Select Weight',],
       numberOfItem: ['', ],
       payment: ['', ],
-      orderActivityStatus: ['', ]
+      orderActivityStatus: ['', ],
     });
+   
+
+
   }
+
+
+
+
+
   delivary_man_details: any = [];
 
   ngOnInit(): void {
     this.showAll();
+    this.showAllTown();
   }
+
+  showAllTown(){
+    let url = 'http://localhost:9001/status/getall';
+    this.http.get(url).subscribe({
+      next: response =>{
+        this.status = response;
+      },
+      error: err =>{
+        console.log(err);        
+      }
+    });
+  
+  }
+  // this.order_details.orderActivityStatus='Pending';
+
+
   get f() {
     return this.form.controls;
   }
@@ -59,11 +92,13 @@ export class OrderDetailsComponent implements OnInit {
     }else{
       console.log("invalid");
     }
+    window.location.reload();
  }
 
 
+ 
  showAll(){
-  let url = 'http://localhost:9001/order/getall';
+  let url = 'http://localhost:9001/orderPanding/getall/Pending';
   this.http.get(url).subscribe({
     next: response =>{
       this.order_details = response;
@@ -76,21 +111,24 @@ export class OrderDetailsComponent implements OnInit {
 
 
 edit(OrderDetails: any){
-  this.form.setValue({
+  this.form.patchValue({
     
     id: OrderDetails.id,
+    senderName: OrderDetails.senderName,
+    senderCell: OrderDetails.senderCell,
+    senderAddress: OrderDetails.senderAddress,
+    userLocation: OrderDetails.userLocation,
+
+    recipientLocation: OrderDetails.recipientLocation,
     recipientName: OrderDetails.recipientName,
     recipientMobileNo: OrderDetails.recipientMobileNo,
     recipientAddress: OrderDetails.recipientAddress,
-    userLocation: OrderDetails.userLocation,
+
     selectProductType: OrderDetails.selectProductType,
     packageWeight: OrderDetails.packageWeight,
     numberOfItem: OrderDetails.numberOfItem,
     payment: OrderDetails.payment,
-    orderActivityStatus: OrderDetails.orderActivityStatus,
     
-    
-
   });
   this.isEdit = true;
 }
@@ -104,8 +142,13 @@ deleteById(id: number){
     error: err =>{
       alert("Recored deletation failed!.");
     }
-  })
+  });
 }
+// Validatro 
+  
+
+
+
 
 
         relode(){
